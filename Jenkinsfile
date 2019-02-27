@@ -66,6 +66,8 @@ node() {
     container('carbon-jessie') {
       checkout scm
       sh('ls -la')
+      sh ('npm install')
+      sh ('npm test')
     } 
 }
 }
