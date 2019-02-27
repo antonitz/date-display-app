@@ -41,7 +41,7 @@ node(label) {
     stage('Run kubectl') {
       container('kubectl') {
         sh "kubectl get pods"
-        sh "kubectl run --image=dateapp antonit/dojo-cicd:${gitCommit} --namespace jenkins-team2"
+        sh "kubectl run --image=antonit/dojo-cicd:${gitCommit} dateapp --namespace jenkins-team2"
       }
     }
 }
