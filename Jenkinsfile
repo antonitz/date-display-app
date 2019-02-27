@@ -5,6 +5,7 @@ podTemplate(label: label, containers: [
   containerTemplate(name: 'docker', image: 'docker', command: 'cat', ttyEnabled: true),
   containerTemplate(name: 'kubectl', image: 'lachlanevenson/k8s-kubectl:v1.8.8', command: 'cat', ttyEnabled: true),
 ],
+serviceAccount:('jenkins-team2')
 volumes: [
   hostPathVolume(mountPath: '/home/carbon-jessie/.carbon-jessie', hostPath: '/tmp/jenkins/.carbon-jessie'),
   hostPathVolume(mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.sock')
@@ -39,7 +40,6 @@ node(label) {
 
     stage('Run kubectl') {
       container('kubectl') {
-        sh "sleep 10000"
         sh "kubectl get pods"
       }
     }
