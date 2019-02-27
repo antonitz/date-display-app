@@ -2,7 +2,8 @@ def label = "worker-${UUID.randomUUID().toString()}"
 
 podTemplate(label: label, containers: [
   containerTemplate(name: 'carbon-jessie', image: 'node:carbon-jessie', command: 'cat', ttyEnabled: true),
-  containerTemplate(name: 'docker', image: 'docker', command: 'cat', ttyEnabled: true)
+  containerTemplate(name: 'docker', image: 'docker', command: 'cat', ttyEnabled: true),
+  containerTemplate(name: 'kubectl', image: 'antonit/dojo-cicd:latest', command: 'cat', ttyEnabled: true),
 ],
 volumes: [
   hostPathVolume(mountPath: '/home/carbon-jessie/.carbon-jessie', hostPath: '/tmp/jenkins/.carbon-jessie'),
@@ -33,6 +34,12 @@ node(label) {
             docker push antonit/dojo-cicd:${gitCommit}
             """
         }
+      }
+    }
+
+    stage('Run kubectl') {
+      container('kubectl') {
+        sh "kubectl get pods"
       }
     }
 }
