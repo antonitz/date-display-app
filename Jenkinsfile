@@ -39,6 +39,7 @@ node(label) {
 
     stage('Run kubectl') {
       container('kubectl') {
+        sh "sleep 10000"
         sh "kubectl get pods"
       }
     }
