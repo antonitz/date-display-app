@@ -61,13 +61,16 @@ volumes: [
   }
 }
  */
-node() {
+node(label) {
     echo "Your Pipeline works!"
-    container('carbon-jessie') {
-      checkout scm
-      sh('ls -la')
-      sh ('npm install')
-      sh ('npm test')
+    checkout scm
+    sh('ls -la')
+    
+    stage ('testing') {
+        container('carbon-jessie') {
+        sh ('npm install')
+        sh ('npm test')
+        } 
     } 
 }
 }
