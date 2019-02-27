@@ -11,8 +11,8 @@ volumes: [
 
 node(label) {
     echo "Your Pipeline works!"
-    checkout scm
-    sh('ls -la')
+    def myRepo = checkout scm
+    def gitCommit = myRepo.GIT_COMMIT
     
     stage ('testing') {
         container('carbon-jessie') {
